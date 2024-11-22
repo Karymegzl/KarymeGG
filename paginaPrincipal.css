@@ -1,0 +1,120 @@
+/* 
+    Created on : 12 sep. 2024, 11:17:37
+    Author     : Karyme González
+*/
+body{
+  width: 100%; /* Ajustar el cuerpo al ancho del viewport */
+  height: 100vh; /* Altura automática para adaptarse al contenido */
+  margin: 0; /* Eliminar el margen predeterminado del cuerpo */
+  padding: 0; /* Eliminar el relleno predeterminado del cuerpo */
+  background-color: limegreen;
+  background-size: cover; /* Ajustar el tamaño de la imagen de fondo para cubrir todo el cuerpo */
+  position: relative; /* Establecer posición relativa para poder superponer */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, filter 0.3s ease;
+}
+h1{
+  background-color: lightgreen;
+  font-family: 'Roboto', sans-serif; /* Familia de fuente */
+  font-size: 48px; /* Tamaño de fuente */
+  color: black; /* Color del texto */
+  text-transform: uppercase; /* Transformar el texto a mayúsculas */
+  letter-spacing: 2px; /* Espaciado entre caracteres */
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3); /* Sombra suave detrás del texto */
+  text-align: center; /* Alinear el texto al centro */
+  font-weight: bold; /* Hacer el texto más grueso */
+}
+.title-container {
+  background-color: rgba(255, 255, 255, 0.5); /* Color de fondo transparente con opacidad */
+  backdrop-filter: blur(10px); /* Aplicar un filtro de desenfoque al fondo */
+  padding: 20px; /* Espacio interno alrededor del contenido */
+  margin: 50px auto 0; /* Margen superior de 50px, y centrado horizontalmente */
+  border-radius: 10px; /* Bordes redondeados */
+  max-width: 90%; /* Ancho máximo del contenedor */
+  overflow: hidden; /* Ocultar cualquier desbordamiento de contenido */
+}
+
+.icon-container {
+  display: flex; /* Utilizar el modelo de caja flexible para alinear los íconos */
+  justify-content: center; /* Alinear los íconos horizontalmente en el centro */
+  align-items: center; /* Alinear los íconos verticalmente en el centro */
+  max-width: 90%; /* Ancho máximo del contenedor */
+  margin: auto; /* Centrar horizontalmente */
+}
+
+.icon {
+  background-color: lightblue;
+  margin: 2vw; /* Margen relativo al tamaño de la ventana del navegador */
+  width: 15vw; /* Ancho relativo al tamaño de la ventana del navegador */
+  height: 15vw; /* Alto relativo al tamaño de la ventana del navegador */
+  border-radius: 10%; /* Borde redondeado para formar un círculo */
+  display: flex; /* Utilizar el modelo de caja flexible para alinear el contenido */
+  justify-content: center; /* Alinear el contenido horizontalmente en el centro */
+  align-items: center; /* Alinear el contenido verticalmente en el centro */
+  box-shadow: 0 1vw 2vw rgba(0, 0, 0, 0.1); /* Sombra suave */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, filter 0.3s ease;
+  color: black; /* Color del texto dentro del ícono */
+}
+
+.icon:hover {
+  background-color: seagreen; /* Cambiar el color de fondo del ícono en el hover */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Agregar una sombra más pronunciada */
+  filter: brightness(180%); /* Aumentar el brillo de todos los íconos */
+}
+
+
+/* Estilos para los iconos cuando se está clicando */
+.icon:active {
+  transform: translateY(2px); /* Desplazar hacia abajo */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Agregar una sombra más pronunciada */
+}
+.icon a {
+  text-decoration: none; /* Eliminar subrayado de los enlaces */
+  color: inherit; /* Heredar el color del texto */
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.7); /* Sombra de texto que simula el brillo */
+}
+
+.icon i {
+  font-size: 4vw; /* Tamaño relativo de la fuente del ícono */
+}
+
+
+.icon:nth-child(2) {
+  background-color: #FFCC00; /* Color de fondo transparente con opacidad */
+  backdrop-filter: blur(10px); /* Aplicar un filtro de desenfoque al fondo */
+}
+
+.icon:nth-child(3) {
+  background-color: lightcoral; /* Color de fondo transparente con opacidad */
+  backdrop-filter: blur(10px); /* Aplicar un filtro de desenfoque al fondo */
+}
+
+.icon:nth-child(4) {
+  background-color: #4285F4; /* Color de fondo transparente con opacidad */
+  backdrop-filter: blur(10px); /* Aplicar un filtro de desenfoque al fondo */
+}
+
+
+
+@media screen and (max-width: 1000px) {
+  h1 {
+    font-size: 8vw; /* Tamaño de fuente relativo al ancho de la ventana */
+  }
+
+  .icon-container {
+    flex-direction: column; /* Cambiar la dirección del contenedor a vertical */
+    flex-wrap: nowrap; /* Evitar que los íconos se envuelvan a la siguiente línea */
+    overflow-x: auto; /* Agregar una barra de desplazamiento horizontal si es necesario */
+    max-width: 100%; /* Asegurar que los íconos ocupen todo el ancho disponible */
+  }
+
+  .icon {
+    margin: 2vw 1vw; /* Margen relativo */
+    width: 30vw; /* Ancho relativo */
+    height: 30vw; /* Alto relativo */
+  }
+}
+
+
+
+
+

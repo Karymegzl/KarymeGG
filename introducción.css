@@ -1,0 +1,91 @@
+
+/* 
+    Created on : 12 sep. 2024, 14:19:54
+    Author     : Karyme González
+*/
+body {
+  width: 100%; /* Ajustar el cuerpo al ancho del viewport */
+  height: auto; /* Altura automática para adaptarse al contenido */
+  margin: 0; /* Eliminar el margen predeterminado del cuerpo */
+  padding: 0; /* Eliminar el relleno predeterminado del cuerpo */
+  background: limegreen; /* Fondo con un degradado lineal */
+}
+
+/* Contenedores generales */
+.container{
+    background-color: rgba(255, 255, 255, 0.5); /* Color de fondo transparente con opacidad */
+    backdrop-filter: blur(10px); /* Aplicar un filtro de desenfoque al fondo */
+    border-radius: 10px; /* Agregar bordes redondeados */
+    padding: 20px; /* Espaciado interno */
+    margin-bottom: 20px; /* Añadir espacio inferior entre contenedores */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Borde sombreado */
+    text-decoration: none; /* Quita el subrayado */
+    
+}
+
+.container a{
+    text-decoration: none; /* Quita el subrayado */
+    color: black; /* Cambia el color del texto a negro */
+}
+
+/* Estilos para las imágenes */
+img {
+    max-width: 100%; /* Asegurar que las imágenes no excedan el ancho del contenedor */
+    height: auto; /* Mantener la proporción de aspecto */
+    border-radius: 10px; /* Agregar bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Agregar una sombra suave */
+    transition: transform 0.3s ease-in-out; /* Agregar una transición suave en el hover */
+    display: block; /* Convertir la imagen en un bloque para centrarla fácilmente */
+    margin: 20px auto; /* Centrar la imagen horizontalmente */
+    border: solid black 2px;
+}
+
+/* Estilos para los párrafos */
+p {
+    font-size: 16px; /* Aumentar el tamaño del texto */
+    line-height: 1.6; /* Aumentar el espaciado entre líneas */
+    margin: 20px 0; /* Añadir espacio inferior entre párrafos */
+    padding: 0 20px; /* Relleno lateral */
+    font-family: 'Roboto', sans-serif; /* Fuente Roboto */
+    color: black; /* Color de texto negro */
+    text-decoration: none; /* Quita el subrayado */
+}
+
+/* Estilos para los encabezados */
+h1 {
+    font-family: 'Roboto', sans-serif; /* Fuente Roboto */
+    font-weight: bold; /* Hacer el texto más grueso */
+    color: black; /* Color de texto negro */
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2); /* Agregar una sombra suave al texto */
+    margin-bottom: 5px; /* Añadir espacio inferior entre encabezados y el contenido siguiente */
+    text-align: center; /* Alinear texto al centro */
+    text-decoration: none; /* Quita el subrayado */
+}
+
+h2 {
+    font-family: 'Roboto', sans-serif; /* Fuente Roboto */
+    font-weight: bold; /* Hacer el texto más grueso */
+    color: black; /* Color de texto negro */
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2); /* Agregar una sombra suave al texto */
+    margin: 45px; /* Separación exterior */
+    margin-bottom: 10px; /* Añadir espacio inferior entre encabezados y el contenido siguiente */ 
+    text-decoration: none; /* Quita el subrayado */
+}
+
+/* Media queries para hacer el diseño más responsive */
+@media (max-width: 768px) {
+    .indice, .container, .titulo {
+        padding: 15px; /* Ajustar padding para pantallas más pequeñas */
+    }
+    .indice ul li a, p {
+        font-size: 14px; /* Ajustar tamaño de texto para pantallas más pequeñas */
+    }
+}
+
+@media (max-width: 480px) {
+    .container, .titulo {
+        padding: 10px; /* Ajustar padding para pantallas aún más pequeñas */
+    }
+}
+

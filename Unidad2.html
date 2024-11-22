@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Unidad 2</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="unidad2.css" rel="stylesheet" type="text/css">
+    </head>
+    
+    <body>
+        <center>
+               <!-- Indice -->
+               <div class="indice" id="indice">
+            <h1>Unidad 2. Estructura y Funcionamiento del CPU </h1></hr>
+            <h3>INDICE</h3> </hr>
+            <p><a href="#organización">2.1 Organzación del procesador</p></hr>
+            <p><a href="#estructura">2.2 Estructuras de registros</p></hr>
+            <p>2.2.1 Registros visibles para el usuario</p></hr>
+            <p>2.2.2 Registros de control y estado</p></hr>
+            <p><a href="#ciclo">2.3 El ciclo de instrucciones</p></hr>
+            <p>2.3.1 Ciclo Fetch-Decode-Execute</p></hr>
+            <p>2.3.2 Segmentación de Instrucciones</p></hr>
+            <p>2.3.3 Conjunto de Instrucciones</p></hr>
+            <p><a href="#modos">2.4 Modos de direccionamiento</p></hr>
+        </div>
+    </center>
+    
+                                  <!-- organización del procesador -->
+    <div class="container" id="organización">
+        <h2>Organización del Procesador</h2>
+        <p>Se refiere a cómo están diseñados y conectados los componentes internos del procesador para 
+           ejecutar instrucciones. Se enfoca en la estructura funcional y la interrelación de las distintas 
+           partes del procesador, incluyendo:</p>
+        <ol>
+            <li><b>Unidad de Control (CU):</b> Dirige la operación de los otros componentes del procesador.</li>
+            <li><b>Unidad Aritmético-Lógica (ALU):</b>Realiza operaciones matemáticas y lógicas.</li>
+            <li><b>Registros:</b>Pequeños espacios de almacenamiento dentro del procesador para guardar datos temporales durante las operaciones.</li>
+            <li><b>Buses:</b>Canales que transportan datos e instrucciones entre diferentes partes del procesador y otros componentes del sistema.</li>
+            <li><b>Caché:</b>Memoria pequeña y rápida que almacena datos de uso frecuente para reducir el tiempo de acceso a la memoria principal.</li>
+        </ol>
+        <center>
+               <img src="org.webp" width="40%" height="30%"> 
+            </center>
+        <a href="#indice"<b><u>Índice</u></b></a>
+        </div>
+                                  
+                                   <!-- estructuras de registros -->
+    <div class="container" id="estructura">
+        <h2>Estructuras de Registros</h2>
+        <p>Registros del CPU:
+           Se emplean para controlar las instrucciones en ejecución, manejar direccionamiento de memoria y propiciar la capacidad aritmética.
+           Los registros vienen de tres tipos: datos, direcciones e índice, que tiene lugar en casi todos los aspectos de la operación del CPU.
+           El tamaño de un registro depende del CPU; los más simples tienen registros que aceptan 8 o 16 bits de datos y los más complejos tienen 
+           registros de 32, 48 o 64 bits.</p>
+        <i><b><h3>Registros visibles para los usuarios</h3></b></i>
+        <p>Son aquellos que los programadores pueden utilizar directamente a través de instrucciones del conjunto de instrucciones 
+           del procesador. Estos registros están diseñados para ser manipulados explícitamente en los programas de software y forman
+           una interfaz crucial entre el hardware del procesador y el software. Algunos de sus tipos son:</p>
+         <center>
+               <img src="visibles.jpeg" width="40%" height="30%"> 
+            </center>
+        <ol>
+            <li><b>De propósito general: </b>Son utilizados para almacenar temporalmente datos durante la ejecución de un programa. 
+                   Sirven para realizar operaciones matemáticas, lógicas o de manipulación de datos y también pueden guardar direcciones de memoria.</li>
+            <li><b>De propósito especial: </b>Utilizados para propósitos específicos en ciertos contextos. Un ejemplo son los registros de índice y puntero.</li>
+            <li><b>Contador de programa: </b>Aunque generalmente no es accesible directamente por el usuario en algunas arquitecturas, es un registro importante 
+                   que contiene la dirección de la próxima instrucción a ser ejecutada.</li>
+            <li><b>Registros de bandera o estado: </b>Estos registros no almacenan datos de usuario, pero sí son visibles para el programador 
+                   porque indican el resultado de las operaciones y pueden influir en decisiones dentro de un programa.</li>
+            <li><b>Registros de segmento: </b>En arquitecturas como la x86, se usan para gestionar la segmentación de la memoria:</li>
+            <ul>
+                <li>CS (Code Segment): Contiene la dirección del segmento donde reside el código ejecutable.</li>
+                <li>DS (Data Segment): Contiene la dirección base del segmento de datos.</li>
+                <li>SS (Stack Segment): Contiene la dirección base del segmento de pila.</li>
+            </ul>
+            <li><b>Registros flotantes</b>En procesadores con FPU (Unidad de Punto Flotante), existen registros dedicados a realizar operaciones 
+                   matemáticas de punto flotante (decimales de alta precisión), visibles para el programador</li>
+        </ol>
+        
+        <i><b><h3>Registros de control y estado</h3></b></i>
+        <ol>
+            <li><b>Registros de Estado:</b>Estos registros contienen indicadores que reflejan los resultados de las operaciones 
+                   aritméticas y lógicas, y se utilizan para el control del flujo de un programa. En particular, las banderas 
+                   permiten realizar decisiones condicionales y controlar saltos en el código. Principales banderas de estado:</li>
+            <ul>
+                <li>Zero Flag (ZF): Se establece cuando el resultado de una operación es igual a cero. Esto es útil para saltos condicionales en bucles.</li>
+                <li>Sign Flag (SF): Indica si el resultado de una operación es negativo. Se activa si el bit más significativo de una operación es 1.</li>
+                <li>Carry Flag (CF): Se activa cuando una operación aritmética genera un acarreo o desbordamiento en operaciones de suma o resta.</li>
+                <li>Overflow Flag (OF): Indica si se produjo un desbordamiento aritmético en operaciones con números con signo.</li>
+                <li>Parity Flag (PF): Indica si el número de bits con valor 1 en el resultado es par.</li>
+                <li>Auxiliary Carry Flag (AF): Se utiliza para indicar acarreo entre los bits de menor peso (nibbles) en operaciones aritméticas, común en 
+                    operaciones de ajuste en cálculos BCD (decimal codificado en binario).</li>
+            </ul>
+            <li><b>Registros de Control:</b>permiten configurar y modificar el comportamiento del procesador, controlando características como 
+                   la protección de memoria, el modo de operación del CPU (real o protegido), y la configuración de la memoria caché. Estos 
+                   registros no suelen ser accesibles directamente en lenguajes de alto nivel y son manipulados principalmente en código 
+                   ensamblador o a través del sistema operativo. Principales registros de control: </li>
+            <ul>
+                <li>CR0: Registro de control principal en la arquitectura x86. Contiene banderas que controlan diversas características del procesador,
+                    como:</li>
+                <ul>              
+                    <li>PE (Protection Enable): Habilita o deshabilita el modo protegido.</li>
+                    <li>MP (Monitor Coprocessor): Controla el uso de la FPU (unidad de punto flotante).</li>
+                    <li>EM (Emulation): Indica si las instrucciones de la FPU están emuladas por software.</li>
+                    <li>PG (Paging): Habilita la paginación, un mecanismo de traducción de direcciones de memoria.</li>
+                </ul>
+                <li>CR2: Contiene la dirección de la memoria que causó una falla de página (page fault), lo que es útil para el manejo de 
+                    excepciones de memoria.</li>
+                <li>CR3: Almacena la dirección base del directorio de páginas utilizado para la paginación. Es crucial en la traducción de direcciones 
+                     virtuales a direcciones físicas en sistemas que usan memoria virtual.</li>
+                <li>CR4: Controla características adicionales de la CPU, como la habilitación de extensiones de instrucciones (por ejemplo, SSE, PAE), 
+                    la protección de escritura, y el control de depuración.</li>
+            </ul>
+        </ol>
+        <center>
+               <img src="registros.jpeg" width="40%" height="30%"> 
+            </center>
+        <a href="#indice"<b><u>Índice</u></b></a>
+        </div>
+           
+                                             <!-- ciclón de instrucciones -->
+        <div class="container" id="ciclo">
+            <h2>El Ciclo de Instrucciones</h2>    
+            <p>Es el proceso que sigue un procesador para ejecutar una instrucción de un programa. Es un ciclo que consta de una serie de etapas 
+                bien definidas que se repiten continuamente para procesar cada instrucción en el orden que el programa las establece. Este ciclo 
+                es fundamental en la arquitectura de cualquier procesador</p>
+            
+            <i><b><h3>Ciclo Fetch-Decode,Execute</h3></b></i>
+            <p>El ciclo Fetch, Decode, Execute es el proceso fundamental que sigue el procesador para ejecutar cada instrucción de un programa.
+               Estas tres etapas básicas son repetidas continuamente para procesar cada instrucción en el orden que indica el código del programa.
+               Aquí se explica cada etapa con más detalle:</p>
+            <center>
+               <img src="ciclo.webp" width="40%" height="30%"> 
+            </center>
+            <ol>
+                <li><b>FETCH (Búsqueda).</b></li>
+                  <p> En esta fase, el procesador localiza y obtiene la próxima instrucción que debe ejecutarse desde la memoria principal.
+                    El Contador de Programa (PC, Program Counter) contiene la dirección de la siguiente instrucción a ejecutar, la cual se 
+                    encuentra almacenada en la memoria. Pasos importantes en esta etapa:</p>
+                <ul>
+                    <li> El procesador envía la dirección contenida en el PC a la memoria para obtener la instrucción.</li>
+                    <li>La instrucción se transfiere desde la memoria al Registro de Instrucción (IR, Instruction Register).</li>
+                    <li>El PC se incrementa para apuntar a la dirección de la siguiente instrucción.</li>
+                </ul>
+                  <li><b>DECODE (Decodificación).</b></li>
+                <p>Una vez que la instrucción ha sido cargada en el IR, el procesador debe interpretarla para determinar qué operación debe 
+                   realizar y qué operandos se necesitan. En esta etapa, la Unidad de Control del procesador analiza la instrucción.
+                   Pasos importantes en esta etapa:</p>
+                <ul>
+                    <li>La Unidad de Control decodifica la instrucción, identificando la operación que debe realizarse (por ejemplo, suma, 
+                        carga de datos, salto, etc.).</li>
+                    <li>La unidad también determina qué operandos serán necesarios. Estos operandos pueden estar almacenados en registros o en la memoria.</li>
+                    <li>Si la instrucción involucra una operación aritmética, lógica o de manipulación de datos, el procesador prepara la Unidad Aritmético-Lógica 
+                        (ALU) para realizar la operación.</li>
+                </ul>
+                <li><b>EXECUTE (Ejecución).</b></li>
+                <p>En la etapa de ejecución, el procesador realiza la operación especificada por la instrucción decodificada. La operación puede 
+                   involucrar cálculos aritméticos, comparaciones lógicas, transferencia de datos, o control del flujo del programa (por ejemplo,
+                   un salto o una bifurcación). Pasos importantes en esta etapa:</p>
+                <ul>
+                    <li>Si es una operación aritmética o lógica, la ALU realiza la operación sobre los operandos.</li>
+                    <li>Si la instrucción es una transferencia de datos, los datos se copian entre registros y/o memoria.</li>
+                    <li>Si la instrucción es de control de flujo (como un salto o bifurcación), el PC se actualiza para saltar a una nueva 
+                        dirección en lugar de continuar con la siguiente instrucción secuencial.</li>
+                </ul>
+            </ol>
+            <center>
+               <img src="cic.avif" width="40%" height="30%"> 
+            </center>
+            
+            <i><b><h3>Segmentación de instrucciones</h3></b></i>
+            <p>La <b>segmentación de instrucciones</b> o <b>pipelining</b> es una técnica que permite mejorar el rendimiento de un procesador al dividir el 
+               ciclo de instrucción en varias etapas (o segmentos) que pueden funcionar de manera simultánea. Esto significa que mientras una 
+               instrucción está en una fase del ciclo, otra puede estar en una fase diferente, lo que permite que múltiples instrucciones se 
+               procesen al mismo tiempo, en lugar de esperar a que una instrucción complete todas sus etapas antes de empezar la siguiente.</p>
+            <center>
+               <img src="segm.jpg" width="40%" height="30%"> 
+            </center>
+            <i><p>Ventajas de la segmentación</p></i>
+            <ol>
+                <li><b>Mayor rendimiento:</b> Al permitir que varias instrucciones se procesen simultáneamente en diferentes etapas, se aumenta el rendimiento 
+                    del procesador sin aumentar su frecuencia de reloj.</li>
+                <li><b>Eficiencia:</b> Los recursos del procesador, como la ALU o los buses de datos, se usan de manera más eficiente ya que no están inactivos 
+                    entre instrucciones.</li>
+                <li><b>Latencia reducida:</b> Se reduce el tiempo de espera entre el inicio y el final de las instrucciones debido a la ejecución simultánea de
+                    múltiples instrucciones.</li>
+            </ol>
+            
+            <i><b><h3>Conjunto de instrucciones</h3></b></i>
+            <p>El conjunto de instrucciones (ISA, por sus siglas en inglés: <i>Instruction Set Architecture</i>) es el conjunto completo de comandos o 
+               instrucciones que un procesador puede ejecutar. Representa la interfaz entre el hardware y el software, ya que define las operaciones 
+               que los programas pueden solicitar al hardware que realice. Cada procesador o familia de procesadores tiene un conjunto de instrucciones
+               específico, que incluye las operaciones disponibles y la manera en que se codifican.</p>
+            <p>Componentes del conjunto de instrucciones</p>
+            <ol>
+                <li><i>Tipos de instrucciones:</i></li>
+                <ul>
+                    <li><b>Aritméticas y lógicas:</b> Sumar, restar, multiplicar, dividir, AND, OR, NOT, XOR, etc.</li>
+                    <li><b>Control de flujo:</b> Saltos condicionales, incondicionales, llamadas a subrutinas, retornos.</li>
+                    <li><b>Carga y almacenamiento (Load/Store):</b> Mover datos entre registros y memoria.</li>
+                    <li><b>Manipulación de bits:</b> Rotar, desplazar (shift), y operaciones a nivel de bits.</li>
+                    <li><b>Gestión del procesador:</b> Instrucciones para controlar el estado del procesador, interrupciones, y manejo de excepciones.</li>
+                </ul>
+                <li><i>Formato de las instrucciones:</i> Cada instrucción tiene un formato específico que incluye los siguientes elementos:</li>
+                <ul>
+                    <li><b>Código de operación (opcode):</b> Es la parte de la instrucción que indica qué operación se debe realizar.</li>
+                    <li><b>Operandos:</b> Son los datos sobre los cuales se ejecuta la operación. Pueden ser registros, direcciones de memoria, 
+                        constantes inmediatas, etc.</li>
+                    <li><b>Modos de direccionamiento:</b> Especifica cómo acceder a los operandos, ya sea de manera directa, indirecta, 
+                        mediante registros, etc.</li>
+                </ul>
+                <li><i>Modos de direccionamiento</i></li>
+                <ul>
+                    <li><b>Directo:</b> La instrucción contiene la dirección de memoria exacta del operando.</li>
+                    <li><b>Indirecto:</b> La instrucción contiene una referencia a un registro o ubicación de memoria que almacena la dirección real del operando.</li>
+                    <li><b>Inmediato:</b> El valor del operando está directamente en la instrucción.</li>
+                    <li><b>Indexado:</b> La dirección del operando se obtiene sumando un valor constante a un registro de índice.</li>
+                    <li><b>Relativo:</b> Se especifica un desplazamiento relativo a la posición actual del programa.</li>
+                </ul>
+                <li><i>Tamaño de las instrucciones: </i>Las instrucciones pueden tener diferentes tamaños, dependiendo de la arquitectura:</li>
+                <ul>
+                    <li><b>Longitud fija: </b>Todas las instrucciones tienen el mismo tamaño, lo que simplifica el decodificador pero puede desperdiciar espacio si 
+                        se necesitan instrucciones más simples.</li>
+                    <li><b>Longitud variable:</b> Las instrucciones pueden tener diferentes tamaños, permitiendo que instrucciones simples ocupen menos espacio y 
+                        complejas más, pero aumentando la complejidad del decodificador.</li>
+                </ul>
+            </ol>
+            <center>
+               <img src="conj.png" width="40%" height="30%"> 
+            </center>
+            
+            <a href="#indice"<b><u>Índice</u></b></a>
+        </div>
+              
+                                            <!-- modos de direccionamiento -->
+        <div class="container" id="modos">
+            <h2>Modos de Direccionamiento</h2>    
+            <p>Los modos de direccionamiento son las diversas maneras en que una instrucción de un procesador puede especificar la ubicación de 
+            los operandos, ya sea en registros, en memoria o como valores inmediatos. Cada modo de direccionamiento indica cómo se debe acceder 
+            a los datos que se necesitan para ejecutar una instrucción.</p>
+            <p>Aquí una breve explicación de los modos de direccionamiento más comunes:</p>
+            <ul>
+                <li><b>Modos inmediatos:</b> El operando es parte de la instrucción.</li>
+                <li><b>Modos de memoria (directo, indirecto):</b> El operando se encuentra en una dirección de memoria especificada por la
+                    instrucción o referenciada indirectamente.</li>
+                <li><b>Modos de registro (directo, indirecto):</b> El operando se encuentra en un registro o la dirección está almacenada en un registro.</li>
+                <li><b>Modos indexados y relativos:</b> Utilizan un registro base y un desplazamiento para calcular la dirección efectiva.</li>
+                <li><b>Modo de pila:</b> Usa una estructura de datos LIFO para gestionar operandos.</li>
+            </ul>
+            <center>
+               <img src="dir.jpg" width="40%" height="30%"> 
+            </center>
+            
+             <a href="#indice"<b><u>Índice</u></b></a>
+        </div>           
+                                            
+                                                  <!-- link unidades -->
+    <div class="container">
+            <a href = "file:///C:/Users/DELL/OneDrive%20-%20Tecnologico%20Nacional%20de%20Mexico%20Campus%20Saltillo/Documentos/NetBeansProjects/Arquitectura/public_html/Unidades.html">
+            <b><u>Unidades</u></b></a>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,139 @@
+
+/* 
+    Created on : 12 sep. 2024, 12:50:18
+    Author     : Karyme González
+*/
+body {
+  width: 100%; /* Ajusta el ancho del cuerpo al 100% */
+  height: auto; /* La altura se ajusta automáticamente */
+  margin: 0; /* Elimina el margen predeterminado */
+  padding: 0; /* Elimina el relleno predeterminado */
+  background-color: limegreen; /* Color de fondo */
+  background-size: cover; /* Ajusta la imagen de fondo */
+  position: relative; /* Establece la posición relativa */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, filter 0.3s ease; /* Transiciones suaves */
+}
+h3 {
+    font-family: 'Roboto', sans-serif; /* Fuente Roboto */
+    font-weight: bold; /* Hacer el texto más grueso */
+    color: black; /* Color de texto negro */
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2); /* Agregar una sombra suave al texto */
+    margin: 45px; /* Separación exterior */
+    margin-bottom: 10px; /* Añadir espacio inferior entre encabezados y el contenido siguiente */ 
+}
+
+/* Estilos para el contenedor del título */
+.title-container {
+  background-color: rgba(255, 255, 255, 0.5); /* Color de fondo con opacidad */
+  backdrop-filter: blur(10px); /* Aplica un filtro de desenfoque al fondo */
+  padding: 20px; /* Espacio interno */
+  margin: 50px auto 0; /* Margen superior y centrado horizontal */
+  border-radius: 10px; /* Bordes redondeados */
+  max-width: 90%; /* Ancho máximo del contenedor */
+  overflow: hidden; /* Oculta el desbordamiento de contenido */
+}
+
+/* Estilos para el título */
+h1 {
+  font-family: 'Roboto', sans-serif; /* Familia de fuente */
+  font-size: 48px; /* Tamaño de fuente */
+  color: black; /* Color del texto */
+  text-transform: uppercase; /* Transformación de texto a mayúsculas */
+  letter-spacing: 2px; /* Espaciado entre caracteres */
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3); /* Sombra de texto */
+  text-align: center; /* Alineación del texto */
+  font-weight: bold; /* Peso de la fuente */
+}
+
+/* Estilos para el contenedor de iconos */
+.icon-container {
+  display: flex; /* Utilizar el modelo de caja flexible para alinear los íconos */
+  justify-content: center; /* Alinear los íconos horizontalmente en el centro */
+  align-items: center; /* Alinear los íconos verticalmente en el centro */
+  max-width: 90%; /* Ancho máximo del contenedor */
+  margin: auto; /* Centrar horizontalmente */
+}
+
+/* Estilos para los íconos */
+.icon {
+  margin: 2vw; /* Margen entre los íconos */
+  width: 15vw; /* Ancho de los íconos */
+  height: 15vw; /* Altura de los íconos */
+  border-radius: 10%; /* Bordes redondeados */
+  display: flex; /* Usa el modelo de caja flexible */
+  justify-content: center; /* Alinea el contenido horizontalmente */
+  align-items: center; /* Alinea el contenido verticalmente */
+  box-shadow: 0 1vw 2vw rgba(0, 0, 0, 0.1); /* Sombra suave */
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, filter 0.3s ease; /* Transiciones suaves */
+}
+
+
+/* Estilos para los íconos cuando se pasa el ratón por encima */
+.icon:hover {
+  background-color: seagreen; /* Cambio de color de fondo */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
+  filter: brightness(180%); /* Aumento de brillo */
+}
+
+/* Estilos para los íconos cuando se hace clic */
+.icon:active {
+  transform: translateY(2px); /* Desplazamiento hacia abajo */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
+}
+
+/* Estilos para los enlaces dentro de los íconos */
+.icon a {
+  text-decoration: none; /* Elimina el subrayado de los enlaces */
+  color: inherit; /* Hereda el color del texto */
+  font-family: 'Roboto', sans-serif; /* Familia de fuente */
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.7); /* Sombra de texto que simula el brillo */
+  font-weight: bold; /* Hace que el texto sea negrita */
+}
+
+/* Estilos específicos para el segundo ícono */
+.icon:nth-child(2) {
+  background-color: purple; /* Color de fondo del segundo ícono */
+  backdrop-filter: blur(10px); /* Aplica un filtro de desenfoque al fondo */
+}
+
+/* Estilos específicos para el tercer ícono */
+.icon:nth-child(3) {
+  background-color: crimson; /* Color de fondo del tercer ícono */
+  backdrop-filter: blur(10px); /* Aplica un filtro de desenfoque al fondo */
+}
+
+/* Estilos específicos para el cuarto ícono */
+.icon:nth-child(4) {
+  background-color: palevioletred; /* Color de fondo del cuarto ícono */
+  backdrop-filter: blur(10px); /* Aplica un filtro de desenfoque al fondo */
+}
+
+/* Estilos específicos para el quinto ícono */
+.icon:nth-child(5) {
+  background-color: teal; /* Color de fondo del quinto ícono */
+  backdrop-filter: blur(10px); /* Aplica un filtro de desenfoque al fondo */
+}
+
+/* Estilos para pantallas con un ancho máximo de 1000px */
+@media screen and (max-width: 1000px) {
+  h1 {
+    font-size: 8vw; /* Tamaño de fuente relativo */
+  }
+  @media screen and (max-width: 1000px) {
+  h1 {
+    font-size: 8vw; /* Tamaño de fuente relativo al ancho de la ventana */
+  }
+
+  .icon-container {
+    flex-direction: column; /* Cambiar la dirección del contenedor a vertical */
+    flex-wrap: nowrap; /* Evitar que los íconos se envuelvan a la siguiente línea */
+    overflow-x: auto; /* Agregar una barra de desplazamiento horizontal si es necesario */
+    max-width: 100%; /* Asegurar que los íconos ocupen todo el ancho disponible */
+  }
+
+  .icon {
+    margin: 2vw 1vw; /* Margen relativo */
+    width: 30vw; /* Ancho relativo */
+    height: 30vw; /* Alto relativo */
+  }
+}

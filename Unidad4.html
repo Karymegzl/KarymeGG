@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>Unidad 4</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="unidad4.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+         <center>
+               <!-- Indice -->
+               <div class="indice" id="indice">
+            <h1>Unidad 4 </h1></hr>
+            <h3>INDICE</h3> </hr>
+            <p><a href="#aspectos">4.1 Aspectos Básicos de la Computación Paralela</p></hr>
+            <p><a href="#tipos">4.2 Tipos de Computación Paralela</p></hr>
+            <p>4.2.1 Clasificación</p></hr>
+            <p>4.2.2 Arquitectura de Computadoras Secuenciales</p></hr>
+            <p>4.2.3 Organización de Direcciones de Memoria</p></hr>
+            <p><a href="#sistemas">4.3 Sistemas de Memoria Compartida</p></hr>
+            <p>4.3.1 Redes de Interconexión Dinámicas o Indirectas</p></hr>
+            <p>4.3.1.1 Redes de Medio Compartido</p></hr>
+            <p>4.3.1.2 Redes Conmutadas</p></hr>
+            <p><a href="#ambientes">4.4 Sistemas de Memoria Distribuida: Multiprocesadores</p></hr>
+            <p>4.4.1 Redes de Interconexión Estáticas</p></hr>
+            <p><a href="#casos">4.5 Casos de Estudio</p></hr>
+        </div>
+    </center>
+    
+                                                              <!--aspectos básicos de la computación paralela-->
+    <div class="container" id="aspectos">
+        <h2>4.1 Aspectos Básicos de la Computación Paralela</h2>
+        <p>La computación paralela es una técnica utilizada para mejorar el rendimiento de sistemas computacionales mediante la ejecución simultánea 
+           de múltiples tareas. Aprovecha la capacidad de realizar varias operaciones al mismo tiempo dividiendo un problema en subproblemas más 
+           pequeños, que pueden resolverse de manera independiente y luego combinarse para obtener el resultado final.</p>
+        <p>El paralelismo en computación consiste en realizar varias tareas simultáneamente. La computación paralela aprovecha múltiples procesadores 
+           o núcleos de procesamiento para ejecutar tareas de manera concurrente, lo que permite resolver problemas de forma más rápida que en un 
+           sistema de procesamiento secuencial (donde las tareas se ejecutan una tras otra).</p>
+        <p><b>Ley Amdahl</b></p>
+        <p>Es un principio fundamental en la computación paralela que establece un límite teórico sobre la mejora del rendimiento que se puede lograr
+           al paralelizar una tarea. Esta ley se enfoca en el impacto que tiene la parte secuencial (no paralelizable) de un algoritmo o programa sobre 
+           el rendimiento total del sistema cuando se usan múltiples procesadores.</p>
+        <p>La mejora potencial de rendimiento (Speedup) de un programa paralelizado se puede calcular usando la fórmula:</p>
+        <center>
+               <img src="amdahl.png" width="40%" height="30%"> 
+        </center>
+        <p>Donde:</p>
+        <ul>
+            <li><i>S(n):</i> es el speedup o la aceleración obtenida con n procesadores.</li>
+            <li><i>P:</i> es la fracción paralelizable del programa.</li>
+            <li><i>1−P:</i> es la parte secuencial del programa (no paralelizable).</li>
+            <li><i>n:</i> es el número de procesadores.</li>
+        </ul>
+        <p>Principales Ideas:</p>
+        <ul>
+            <li>Si P es pequeño (es decir, la parte paralelizable es baja), aumentar el número de procesadores no mejorará significativamente el 
+                rendimiento, ya que la parte secuencial domina el tiempo de ejecución.</li>
+            <li>Si P es grande (la mayor parte del programa es paralelizable), se puede obtener un mejor rendimiento a medida que se incrementa el 
+                número de procesadores.</li>
+            <li>A medida que el número de procesadores crece, el rendimiento estará limitado por la parte secuencial del programa. Esto significa 
+                que incluso con una cantidad infinita de procesadores, la mejora no puede superar un cierto límite.</li>
+        </ul>
+        <p>Implicaciones de la Ley de Amdahl:</p>
+        <ul>
+            <li>La parte secuencial de un programa es crítica para determinar el máximo rendimiento que se puede lograr con paralelización.</li>
+            <li>En muchos casos, intentar paralelizar más allá de un cierto punto ofrece rendimientos decrecientes, ya que la parte secuencial 
+                restringe la mejora.</li>
+        </ul>
+         <p><b>Ley de Gustafson</b></p>
+         <p>Argumenta que el rendimiento de la computación paralela debería evaluarse basándose en la escala del problema, en lugar de la cantidad de 
+            trabajo que no puede ser paralelizado. Gustafson asume que, en la práctica, el tamaño de los problemas aumenta con los recursos disponibles, 
+            lo que permite que la parte paralelizable crezca con el número de procesadores.</p>
+         <p>La fórmula de Gustafson para el speedup es:</p>
+         <center>
+               <img src="gustafson.png" width="40%" height="30%"> 
+        </center>
+         <p>Donde:</p>
+         <ul>
+             <li><i>S(n):</i> es el speedup con n procesadores.</li>
+             <li><i>P:</i> es la fracción paralelizable del programa.</li>
+             <li><i>n:</i> es el número de procesadores.</li>
+         </ul>
+         <p>Principales ideas:</p>
+         <ul>
+             <li>A medida que el tamaño del problema crece, también lo hace la parte paralelizable del mismo, por lo que más trabajo puede ser distribuido 
+                 entre los procesadores.</li>
+             <li>En lugar de enfocarse en la parte secuencial que limita el rendimiento (como en la Ley de Amdahl), Gustafson sugiere que con más 
+                 procesadores, se pueden resolver problemas más grandes y complejos en el mismo tiempo o menos.</li>
+             <li>Esto implica que la escalabilidad en la computación paralela es más factible de lo que sugiere la Ley de Amdahl.</li>
+         </ul>
+         <p>Implicaciones de la Ley de Gustafson:</p>
+         <ul>
+             <li>El tamaño del problema aumenta: Si se escala el problema paralelizable al aumentar el número de procesadores, entonces se puede obtener 
+                 una mejora casi lineal en el rendimiento.</li>
+             <li>Optimismo en la paralelización: La ley de Gustafson proporciona una visión más optimista, ya que sugiere que los problemas más 
+                 grandes pueden ser resueltos eficientemente con más procesadores.</li>
+         </ul>
+         
+         <p><b>Modelos de Consistencia</b></p>
+         <p>Los lenguajes de programación en paralelo y computadoras paralelas deben tener un modelo de consistencia de datos también conocido como un
+            modelo de memoria. El modelo de consistencia define reglas para las operaciones en la memoria del ordenador y cómo se producen los 
+            resultados.</p>
+         <ul>
+             <li><b>Single Instruction, Single Data (SISD):</b> Hay un elemento de procesamiento, que tiene acceso a un único programa y a un 
+                 almacenamiento de datos. En cada paso, el elemento de procesamiento carga una instrucción y la información correspondiente y ejecuta 
+                 esta instrucción. El resultado es guardado de vuelta en el almacenamiento de datos. Luego SISD es el computador secuencial convencional,
+                 de acuerdo al modelo de von Neumann.<li>
+             <li><b>Multiple Instruction, Single Data (MISD):</b> Hay múltiples elementos de procesamiento, en el que cada cual tiene memoria privada 
+                 del programa, pero se tiene acceso común a una memoria global de información. En cada paso, cada elemento de procesamiento de obtiene 
+                 la misma información de la memoria y carga una instrucción de la memoria privada del programa. Este modelo es muy restrictivo y no se 
+                 ha usado en ningún computador de tipo comercial.</li>
+             <li><b>Single Instruction, Multiple Data (SIMD):</b> Hay múltiples elementos de procesamiento, en el que cada cual tiene acceso privado a la 
+                 memoria de información (compartida o distribuida). Sin embargo, hay una sola memoria de programa, desde la cual una unidad de 
+                 procesamiento especial obtiene y despacha instrucciones. En cada paso, cada unidad de procesamiento obtiene la misma instrucción y carga 
+                 desde su memoria privada un elemento de información y ejecuta esta instrucción en dicho elemento. Para aplicaciones con un grado 
+                 significante de paralelismo de información, este acercamiento puede ser muy eficiente.</li>
+             <li><b>Multiple Instruction, Multiple Data (MIMD):</b> Hay múltiples unidades de procesamiento, en la cual cada una tiene tanto instrucciones 
+                 como información separada. Cada elemento ejecuta una instrucción distinta en un elemento de información distinto. Los elementos de 
+                 proceso trabajan asíncronamente. Los clusters son ejemplo son ejemplos del modelo MIMD.</li>
+         </ul>
+        <a href="#indice"<b><u>Índice</u></b></a>
+    </div>
+          
+                                                              <!--tipos de computación paralela-->
+    <div class="container" id="tipos">
+        <h2>4.2 Tipos de Computación Paralela</h2>   
+        <center>
+               <img src="tipos.jpg" width="40%" height="30%"> 
+        </center>
+        <p><b>1. Paralelismo a nivel de datos</b></p>
+        <p>Ocurre cuando el mismo conjunto de instrucciones se aplica a múltiples datos simultáneamente. Es común en aplicaciones que manipulan grandes 
+           volúmenes de datos, como en gráficos y procesamiento de señales.</p>
+        <p>Características:</p>
+        <ul>
+            <li>El mismo conjunto de instrucciones se ejecuta en diferentes datos.</li>
+            <li>Se aprovecha la estructura de los datos para aplicar operaciones de forma simultánea.</li>
+        </ul>
+        <p><b>2. Paralelismo a nivel de tareas</b></p>
+        <p>Consiste en ejecutar diferentes tareas o subprocesos en paralelo. Cada tarea realiza una parte distinta del trabajo global.</p>
+        <p>Características:</p>
+        <ul>
+            <li>Cada tarea realiza operaciones diferentes en los mismos o diferentes conjuntos de datos.</li>
+            <li>Las tareas pueden ser independientes o interdependientes.</li>
+        </ul>
+        <p><b>3. Paralelismo simétrico</b></p>
+        <p>Utiliza un conjunto de procesadores idénticos que comparten una única memoria central. Todos los procesadores pueden acceder a los mismos 
+           datos y realizar operaciones simultáneamente.</p>
+        <p>Características:</p>
+        <ul>
+            <li>Los procesadores son homogéneos.</li>
+            <li>Los recursos son compartidos, lo que requiere una buena sincronización para evitar conflictos de acceso a memoria.</li>
+        </ul>
+        <p><b>4. Paralelismo asimétrico</b></p>
+        <p>En el paralelismo asimétrico, los procesadores no son idénticos. Un procesador principal (máster) puede controlar el trabajo de otros
+           procesadores subordinados (esclavos), lo que permite que diferentes partes de un problema se ejecuten en procesadores con diferentes 
+           capacidades.</p>
+        <p>Características:</p>
+        <ul>
+            <li>Los procesadores pueden tener diferentes capacidades o desempeñar diferentes roles.</li>
+            <li>Se asignan tareas específicas a cada procesador, con uno que coordina el trabajo de los demás.</li>
+        </ul>
+        <p><b>5. Procesamiento en Malla (Mesh Computing)</b></p>
+        <p>Múltiples procesadores están conectados en una red que forma una malla, donde cada procesador se comunica con sus vecinos. Se usa en 
+           sistemas distribuidos y simulaciones complejas.</p>
+        <p>Características:</p>
+        <ul>
+            <li>Los procesadores se comunican directamente entre sí sin pasar por un controlador central.</li>
+            <li>La información fluye en una red distribuida, lo que permite un procesamiento simultáneo en muchas unidades.</li>
+        </ul>
+        <p><b>6. Paralelismo de memoria compartida</b></p>
+        <p>En los sistemas de memoria compartida, múltiples procesadores acceden a la misma memoria física y pueden leer o escribir en ella. 
+           La sincronización es esencial para evitar conflictos.</p>
+        <p>Características:</p>
+        <ul>
+            <li>Todos los procesadores tienen acceso directo a una única memoria compartida.</li>
+            <li>Los procesadores deben coordinarse para no sobrescribir datos de otros.</li>
+        </ul>
+        <p><b>7. Paralelismo de memoria distribuida</b></p>
+        <p>En los sistemas de memoria distribuida, cada procesador tiene su propia memoria local. Los procesadores se comunican entre sí enviando 
+           mensajes a través de una red.</p>
+        <p>Características:</p>
+        <ul>
+            <li>Cada procesador trabaja con su propia memoria local.</li>
+            <li>Se requiere pasar datos entre procesadores cuando uno necesita información que reside en la memoria de otro.</li>
+        </ul>
+        <p><b>8. Paralelismo híbrido</b></p>
+        <p>Combina los enfoques de memoria compartida y memoria distribuida, usando ambos en diferentes niveles de un sistema. Por ejemplo, varios
+           procesadores multinúcleo pueden compartir memoria dentro de un nodo, mientras que los nodos se comunican entre sí a través de una red.</p>
+        <p>Características:</p>
+        <ul>
+            <li>Los procesadores dentro de un nodo comparten memoria, pero los nodos se comunican mediante mensajes entre sí.</li>
+            <li>Combina la eficiencia de la memoria compartida dentro de nodos con la escalabilidad de la memoria distribuida entre nodos.</li>
+        </ul>
+        <p><b>9. Computación en GPU (Graphics Processing Unit)</b></p>
+        <p>Utiliza miles de núcleos en paralelo para procesar grandes cantidades de datos en paralelo. Es especialmente útil en aplicaciones como 
+           procesamiento de gráficos, simulaciones físicas y aprendizaje automático.</p>
+        <p>Características:</p>
+        <ul>
+            <li>La GPU está diseñada para ejecutar muchas operaciones en paralelo de manera eficiente.</li>
+            <li>Las GPUs son ideales para tareas que implican operaciones repetitivas en grandes conjuntos de datos.</li>
+        </ul>
+        
+        <h3><b><i>Clasificación</i></b></h3>
+        <center>
+               <img src="clas.jpg" width="40%" height="30%"> 
+        </center>
+        <p>Las computadoras paralelas se pueden clasificar de acuerdo con el nivel en el que el hardware soporta paralelismo. Esta clasificación es 
+           análoga a la distancia entre los nodos básicos de cómputo.</p>
+        <p><b>1. Computación multinúcleo: </b>Un procesador multinúcleo es un procesador que incluye múltiples unidades de ejecución (núcleos) en el
+            mismo chip.</p>
+        <p><b>2. Multiprocesamiento simétrico: </b>Un multiprocesador simétrico (SMP) es un sistema computacional con múltiples procesadores idénticos 
+            que comparten memoria y se conectan a través de un bus.</p>
+        <p><b>3. Coputación en clúster: </b>Un clúster es un grupo de ordenadores débilmente acoplados que trabajan en estrecha colaboración, de modo 
+            que en algunos aspectos pueden considerarse como un solo equipo.</p>
+        <p><b>4. Procesamiento paralelo masivo: </b>Tienden a ser más grandes que los clústeres, con «mucho más» de 100 procesadores.</p>
+        <p><b>5. Computación distribuida: </b>La computación distribuida es la forma más distribuida de la computación paralela. Se hace uso de 
+            ordenadores que se comunican a través de la Internet para trabajar en un problema dado.</p>
+        <p><b>6. Circuitos integrados de aplicación específica: </b>Debido a que un ASIC (por definición) es específico para una aplicación dada,
+            puede ser completamente optimizado para esa aplicación.</p>
+        <p><b>7. Procesadores vectoriales: </b>Pueden ejecutar la misma instrucción en grandes conjuntos de datos.</p>
+        
+        <h3><b><i>Arquitectura de Computadoras Secuenciales</i></b></h3>
+        <p>Es un diseño en el que las instrucciones se ejecutan una tras otra, en un solo flujo secuencial de control, sin paralelismo a nivel de 
+           instrucciones o datos. Este modelo fue predominante en las primeras generaciones de computadoras y sigue siendo fundamental en los sistemas 
+           actuales, aunque las arquitecturas modernas incluyen elementos de paralelismo. Las computadoras secuenciales se basan en la arquitectura de 
+           Von Neumann, que describe cómo el hardware y el software interactúan para ejecutar programas de manera secuencial.</p>
+        <p>Características clave:</p>
+        <ol>
+            <li><b>Ejecución en serie:</b> Cada instrucción se ejecuta en el orden en que se encuentra en la memoria, sin solapamiento entre la 
+                ejecución de diferentes instrucciones.</li>
+            <li><b>Un solo flujo de instrucciones:</b> En este tipo de arquitectura, solo se puede ejecutar una instrucción a la vez.</li>
+            <li><b>Dependencia del ciclo de reloj:</b> La velocidad de ejecución depende del ciclo de reloj, y las instrucciones siguen este ritmo 
+                de manera secuencial.</li>
+            <li><b>Modelo simple:</b> El diseño de las computadoras secuenciales es simple en comparación con las arquitecturas paralelas, pero su 
+                rendimiento es limitado, ya que no puede aprovechar múltiples procesadores o núcleos.</li>
+        </ol>
+        <center>
+               <img src="sisec.png" width="40%" height="30%"> 
+        </center>
+        <p>Tipos de sistemas secuenciales</p>
+        <p><b>1. Circuitos secuenciales asíncronos: </b>Los cambios de estados ocurren al ritmo natural asociado a las compuertas lógicas utilizadas
+            en su implementación, lo que produce retardos en cascadas entre los biestables del circuito, es decir no utilizan elementos especiales de 
+            memoria, lo que puede ocasionar algunos problemas de funcionamiento, ya que estos retardos naturales no están bajo el control del diseñador 
+            y además no son idénticos en cada compuerta lógica.</p>
+        <p><b>2. Circuitos secuenciales síncronos: </b>Solo permiten un cambio de estado en los instantes marcados o autorizados por una señal de 
+            sincronismo de tipo oscilatorio denominada reloj (cristal o circuito capaz de producir una serie de pulsos regulares en el tiempo), 
+            lo que soluciona los problemas que tienen los circuitos asíncronos originados por cambios de estado no uniformes dentro del sistema o 
+            circuito.</p>
+        
+        <h3><b><i>Organización de Direcciones de Memoria</i></b></h3>
+        <p>La memoria principal en un ordenador en paralelo puede ser compartida —compartida entre todos los elementos de procesamiento en un único 
+           espacio de direcciones—, o distribuida —cada elemento de procesamiento tiene su propio espacio local de direcciones—.El término memoria 
+           distribuida se refiere al hecho de que la memoria se distribuye lógicamente, pero a menudo implica que también se distribuyen físicamente.</p>
+        <center>
+               <img src="mem.jpg" width="40%" height="30%"> 
+        </center>
+        <p>Los accesos a la memoria local suelen ser más rápidos que los accesos a memoria no local. Las arquitecturas de ordenador en las que cada 
+           elemento de la memoria principal se puede acceder con igual latencia y ancho de banda son conocidas como arquitecturas de acceso uniforme 
+           a memoria (UMA).</p>
+        <p>Un sistema que no tiene esta propiedad se conoce como arquitectura de acceso a memoria no uniforme (NUMA). Los sistemas de memoria 
+           distribuidos tienen acceso no uniforme a la memoria.</p>
+        
+        
+        <a href="#indice"<b><u>Índice</u></b></a>
+    </div>
+                                                              <!--sistemas de memoria compartida-->
+    <div class="container" id="sistemas">
+        <h2>4.3 Sistemas de Memoria Compartida</h2>      
+        <p>Son arquitecturas de computación donde múltiples procesadores pueden acceder a una memoria común, permitiendo que los procesos en ejecución
+           se comuniquen y compartan datos de manera eficiente. Esta arquitectura es común en sistemas multiprocesador y se utiliza para facilitar la 
+           computación paralela.</p>
+        <h3><b><i>Redes de Interconexión Dinámicas o Indirectas</i></b></h3>
+        <p>Son arquitecturas utilizadas para conectar múltiples procesadores o nodos en sistemas de computación paralela o distribuidos. A diferencia 
+           de las redes de interconexión directas, donde cada nodo está conectado directamente a otros nodos, las redes indirectas utilizan un enfoque 
+           más flexible para la comunicación.</p>
+        <p>Características de las redes de interconexión dinámicas:</p>
+        <ul>
+            <li><b>Conectividad flexible:</b> Las redes dinámicas permiten que los nodos se conecten de diferentes maneras según la necesidad del 
+                momento, adaptándose a las condiciones de la red y a las solicitudes de comunicación.</li>
+            <li><b>Caminos alternativos:</b> Utilizan múltiples rutas para el tráfico de datos, lo que proporciona redundancia y la capacidad de 
+                manejar fallas en la red.</li>
+            <li><b>Enrutamiento:</b> Estas redes emplean algoritmos de enrutamiento que determinan la mejor ruta para enviar datos desde un nodo
+                de origen hasta un nodo de destino.</li>
+            <li><b>Dinamismo:</b> Pueden cambiar su topología en tiempo de ejecución, permitiendo que los nodos se añadan o eliminen de la red sin 
+                interrumpir la comunicación.</li>
+        </ul>
+        <p>Características de las redes de interconexión indirectas:</p>
+        <ul>
+            <li><b>Estructura Topológica:</b> Utilizan nodos intermediarios (switches/routers) para la comunicación entre nodos y tienen una topología
+                variable que se adapta a las necesidades del sistema.</li>
+            <li><b>Escalabilidad:</b> Permiten añadir nodos fácilmente sin reconfigurar la red y manejan aumentos en la carga de trabajo eficientemente.</li>
+            <li><b>Redundancia y Tolerancia a Fallas:</b> Múltiples rutas para la comunicación mejoran la resiliencia e incluyen redundancia de 
+                conexiones para evitar puntos de falla únicos.</li>
+            <li><b>Dinamismo:</b> Se adaptan dinámicamente a cambios en la carga de trabajo y la topología y utilizan algoritmos de enrutamiento 
+                dinámico para optimizar la comunicación.</li>
+            <li><b>Menor Latencia:</b> Optimización del tráfico y uso de caminos alternativos para reducir tiempos de espera.</li>
+            <li><b>Mecanismos de Control:</b> Implementan protocolos de enrutamiento y control de congestión para gestionar el tráfico.</li>
+        </ul>
+           <center>
+               <img src="redes.webp" width="40%" height="30%"> 
+        </center>
+
+        <h3><b><i>Redes de Medio Compartido</i></b></h3>        
+        <p>Son un tipo de red en la que varios dispositivos (nodos) comparten el mismo canal de comunicación para enviar y recibir datos. Estas redes
+           son comunes en entornos donde se requiere una comunicación sencilla y económica.</p>
+        <p>Características:</p>
+        <ol>
+            <li><b>Acceso compartido:</b> Todos los nodos comparten el mismo medio de transmisión.</li>
+            <li><b>Colisiones de datos.</b></li>
+            <li><b>Protocolos de acceso al medio:</b>Se utilizan protocolos como CSMA/CD (Carrier Sense Multiple Access with Collision Detection) 
+                en redes Ethernet, que permiten a los dispositivos "escuchar" el medio antes de transmitir para minimizar colisiones.</li>
+            <li><b>Simplicidad: </b>La configuración y mantenimiento de redes de medio compartido son generalmente más simples y menos costosos.</li>
+            <li><b>Flexibilidad: </b>Se pueden agregar o eliminar dispositivos fácilmente sin necesidad de reconfigurar toda la red.</li>
+            <li><b>Rendimiento variable:</b> El rendimiento puede verse afectado por el número de nodos activos y la cantidad de tráfico en la red. 
+                A medida que más dispositivos se conectan, el ancho de banda disponible para cada uno puede disminuir.</li>
+        </ol>
+        
+        <h3><b><i>Redes Conmutadas</i></b></h3>   
+        <p>Son un tipo de red en la que los datos se envían a través de diferentes rutas a través de dispositivos de conmutación, como switches y 
+           routers. Estos dispositivos permiten que los paquetes de datos se reenvíen dinámicamente a sus destinos, optimizando el uso del medio 
+           de transmisión y mejorando la eficiencia de la red.</p>
+        <center>
+               <img src="redcon.png" width="40%" height="30%"> 
+        </center>
+        <p>Características:</p>
+        <p><b>1. Conmutación de paquetes</b></p>
+        <p>Los datos se dividen en paquetes que se transmiten de forma independiente. Cada paquete puede tomar una ruta diferente hacia su destino,
+           lo que mejora la utilización de la red.</p>
+        <p><b>2. Dispositivos de conmutación</b></p>
+        <p>Utilizan switches y routers que conectan múltiples dispositivos y gestionan el flujo de datos. Los switches operan a nivel de la capa de 
+           enlace de datos, mientras que los routers operan a nivel de red.</p>
+        <p><b>3. Reducción de colisiones</b></p>
+        <p>Al segmentar el tráfico y proporcionar caminos dedicados para cada comunicación, se reducen las colisiones que son comunes en redes de
+           medio compartido.</p>
+        <p><b>4. Flexibilidad y escalabilidad</b></p>
+        <p>Las redes conmutadas son fácilmente escalables; se pueden agregar nuevos dispositivos sin afectar la red existente. Además, se pueden 
+           configurar diferentes topologías según las necesidades.</p>
+        <p><b>5. Control de tráfico</b></p>
+        <p>Incorporan mecanismos para gestionar y controlar el tráfico de datos, optimizando el uso del ancho de banda y evitando congestiones.</p>
+        <p><b>6. Calidad de servicio (QoS)</b></p>
+        <p>Permiten implementar políticas de QoS para priorizar ciertos tipos de tráfico (como voz o video) sobre otros, mejorando la experiencia 
+           del usuario.</p>
+        
+        <a href="#indice"<b><u>Índice</u></b></a>
+    </div>
+    
+                                                              <!--sistemas de memoria distribuida: multiprocesadores-->
+    <div class="container" id="sistemas">
+        <h2>4.4 Sistemas de Memoria Distribuida: Multiprocesadores</h2>
+        <p>Son arquitecturas donde cada procesador tiene su propia memoria local, y los procesadores se comunican entre sí a través de una red para 
+           acceder a datos y recursos. Este tipo de sistema se utiliza para mejorar el rendimiento y la escalabilidad en aplicaciones que requieren
+           procesamiento paralelo. </p>
+        <p>Ventajas:</p>
+        <ul>
+            <li><b>Mayor Rendimiento: </b>Al reducir la contención en la memoria y permitir el acceso local a los datos, se pueden lograr mejores 
+                tiempos de respuesta y un procesamiento más rápido.</li>
+            <li><b>Escalabilidad:</b> La arquitectura permite añadir fácilmente nuevos procesadores y recursos, lo que es ideal para sistemas 
+                de alta capacidad.</li>
+            <li><b>Flexibilidad:</b> Se pueden utilizar diferentes tipos de procesadores y memorias, lo que permite diseñar sistemas adaptados 
+                a necesidades específicas.</li>
+        </ul>
+        <center>
+               <img src="memdis.webp" width="40%" height="30%"> 
+        </center>
+        <h3><b><i>Redes de Interconexión Estáticas</i></b></h3>   
+        <p>Los multicomputadores utilizan redes estáticas con enlaces directos entre nodos. Cuando un nodo recibe un mensaje lo procesa si viene 
+           dirigido a dicho nodo. Si el mensaje no va dirigido al nodo receptor lo reenvía a otro por alguno de sus enlaces de salida siguiendo 
+           un protocolo de encaminamiento.</p>
+        <p>Características:</p>
+        <ol>
+            <li><b>Topología de la red:</b> determina el patrón de interconexión entre nodos.</li>
+            <li><b>Diámetro de la red:</b> distancia máxima de los caminos más cortos entre dos nodos de la red.</li>
+            <li><b>Latencia:</b> retardo de tiempo en el peor caso para un mensaje transferido a través de la red.</li>
+            <li><b>Ancho de banda:</b> Transferencia máxima de datos en Mbytes/segundo.</li>
+            <li><b>Escalabilidad:</b> posibilidad de expansión modular de la red.</li>
+            <li><b>Grado de un nodo:</b> número de enlaces o canales que inciden en el nodo.</li>
+            <li><b>Algoritmo de encaminamiento:</b> determina el camino que debe seguir un mensaje desde el nodo emisor al nodo receptor.</li>
+        </ol>
+        <p>Ventajas:</p>
+        <ul>
+            <li><b>Previsibilidad:</b>Debido a la topología fija y las rutas definidas, el comportamiento de la red es predecible, lo que facilita
+                la planificación del rendimiento.</li>
+            <li><b>Facilidad de Mantenimiento:</b> Una vez configuradas, requieren menos intervención y mantenimiento en comparación con redes dinámicas.</li>
+            <li><b>Rendimiento Estable:</b> Al no depender de algoritmos de enrutamiento dinámico, el rendimiento puede ser más constante.</li>
+        </ul>
+        
+      <a href="#indice"<b><u>Índice</u></b></a>  
+    </div>
+                                                              
+                                                              <!--casos de estudio-->
+    <div class="container" id="casos">
+        <h2>Casos de Estudio</h2>         
+        <p>Por numerosos motivos, el procesamiento distribuido se ha convertido en un área de gran importancia e interés dentro de la ciencia de la 
+           computación, produciendo profundas transformaciones en las líneas de investigación y desarrollo.</p>
+        <p>Interesa realizar investigación en la especificación, transformación, optimización y evaluación de algoritmos distribuidos y paralelos. 
+           Esto incluye el diseño y desarrollo de sistemas paralelos, la transformación de algoritmos secuenciales en paralelos, y las métricas de 
+           evaluación de performance sobre distintas plataformas de soporte (hardware y software). Más allá de las mejoras constantes en las 
+           arquitecturas físicas de soporte, uno de los mayores desafíos se centra en cómo aprovechar al máximo la potencia de las mismas.</p>
+        <center>
+               <img src="caso.jpg" width="40%" height="30%"> 
+        </center>
+        <p><b><i>Líneas de investigación y desarrollo</i></b></p>
+        <ul>
+            <li>Paralelización de algoritmos secuenciales. Diseño y optimización de algoritmos.</li>
+            <li>Arquitecturas multicore y multithreading en multicore.</li>
+            <li>Modelos de representación y predicción de performance de algoritmos paralelos.</li>
+            <li>Mapping y scheduling de aplicaciones paralelas sobre distintas arquitecturas multiprocesador.</li>
+            <li>Métricas del paralelismo. Speedup, eficiencia, rendimiento, granularidad, superlinealidad.</li>
+            <li>Balance de carga estático y dinámico. Técnicas de balanceo de carga.</li>
+            <li>Análisis de los problemas de migración y asignación óptima de procesos y datos a procesadores.</li>
+            <li>Patrones de diseño de algoritmos paralelos.</li>
+            <li>Escalabilidad de algoritmos paralelos en arquitecturas multiprocesador distribuidas.</li>
+            <li>Implementación de soluciones sobre diferentes modelos de arquitectura homogéneas y heterogéneas.</li>
+            <li>Laboratorios remotos para el acceso transparente a recursos de cómputo paralelo.</li>
+        </ul>
+        <p><b><i>Algunas implementaciones con procesamiento paralelo</i></b></p>
+        <center>
+               <img src="imple.jpg" width="40%" height="30%"> 
+        </center>
+        <p><b>NVIDIA</b></p>
+        <ul>
+            <li><i>Capa física (physical layer):</i></li>
+            <ul>
+                <li>GPU PhysX</li>
+                <li>CPU PhysX</li>
+            </ul>
+            <li><i>Capa de gráficos (graphics layer):</i></li>
+            <ul>
+                <li>GPU DirectX Windows</li>
+            </ul>
+        </ul>
+        
+        <p><b>Intel</b></p>
+        <ul>
+            <li><i>Capa física (physical layer):</i></li>
+            <ul>
+                <li>No GPU PhysX</li>
+                <li>CPU Havok</li>
+            </ul>
+            <li><i>Capa de gráficos (graphics layer):</i></li>
+            <ul>
+                <li>GPU DirectX Windows</li>
+            </ul>
+        </ul
+        
+        <p><b>AMD</b></p>
+        <ul>
+            <li><i>Capa física (physical layer):</i></li>
+            <ul>
+                <li>No GPU PhysX</li>
+                <li>CPU Havok</li>
+            </ul>
+            <li><i>Capa de gráficos (graphics layer):</i></li>
+            <ul>
+                <li>GPU DirectX Windows</li>
+            </ul>
+        </ul
+        
+        <a href="#indice"<b><u>Índice</u></b></a> 
+    </div>
+                                                              
+    <div class="container">
+            <a href = "file:///C:/Users/DELL/OneDrive%20-%20Tecnologico%20Nacional%20de%20Mexico%20Campus%20Saltillo/Documentos/NetBeansProjects/Arquitectura/public_html/Unidades.html">
+            <b><u>Unidades</u></b></a>
+        </div>
+    </body>
+</html>
